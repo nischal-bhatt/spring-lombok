@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionController {
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(KukuException.class)
     public ResponseEntity handleNotFoundException() {
         System.out.println("lo and behold we are inside here!");
         return ResponseEntity.notFound().build();

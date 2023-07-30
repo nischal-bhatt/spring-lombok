@@ -182,7 +182,7 @@ class BeerControllerIntTest {
     void getBeerByIdNotFound() throws Exception {
 
         given(beerService.getBeerById(any(UUID.class)))
-                .willThrow(NotFoundException.class);
+                .willThrow(KukuException.class);
 
         mockMvc.perform(get("/hibro/"+UUID.randomUUID()))
                 .andExpect(status().isNotFound());

@@ -28,7 +28,8 @@ public class BeerController {
     @GetMapping("{id}")
     public Beer getBeer(@PathVariable("id") UUID id)
     {
-        log.info(beerService.getBeerById(UUID.randomUUID()) + "");
+        System.out.println("in here now");
+        //log.info(beerService.getBeerById(UUID.randomUUID()) + "");
        return beerService.getBeerById(id);
     }
 

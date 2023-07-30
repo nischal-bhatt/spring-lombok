@@ -1,5 +1,7 @@
 package com.example.lomboku.service;
 
+import com.example.lomboku.controller.KukuException;
+import com.example.lomboku.controller.NotFoundException;
 import com.example.lomboku.model.Beer;
 import com.example.lomboku.model.BeerStyle;
 import lombok.extern.slf4j.Slf4j;
@@ -12,10 +14,11 @@ import java.util.*;
 @Slf4j
 public class BeerServiceImpl implements BeerService {
 
-    Map<UUID,Beer> beerMap = new HashMap<>();
+    Map<UUID,Beer> beerMap;
 
     public BeerServiceImpl() {
 
+        beerMap = new HashMap<>();
         UUID uuid = UUID.randomUUID();
         beerMap.put(uuid,
                 Beer.builder().id(uuid).beerStyle(BeerStyle.PILSNER).beerName("test1").build());
@@ -39,7 +42,16 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public Beer getBeerById(UUID id) {
 
+        System.out.println(id);
+
         log.info("get beer service is cvalled");
+
+        System.out.println(beerMap.get(id));
+        Beer b = beerMap.get(id);
+        if (b == null) {
+            throw new KukuException("oi!");
+        }
+
         return beerMap.get(id);
     }
 
