@@ -40,19 +40,21 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public Beer getBeerById(UUID id) {
+    public Optional<Beer> getBeerById(UUID id) {
 
-        System.out.println(id);
+        System.out.println(id+"test");
 
         log.info("get beer service is cvalled");
 
         System.out.println(beerMap.get(id));
         Beer b = beerMap.get(id);
         if (b == null) {
-            throw new KukuException("oi!");
+            System.out.println("retirmo");
+            return Optional.empty();
         }
 
-        return beerMap.get(id);
+        System.out.println("notntont");
+        return Optional.of(beerMap.get(id));
     }
 
     @Override

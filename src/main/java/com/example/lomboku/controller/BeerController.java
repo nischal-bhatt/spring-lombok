@@ -30,7 +30,7 @@ public class BeerController {
     {
         System.out.println("in here now");
         //log.info(beerService.getBeerById(UUID.randomUUID()) + "");
-       return beerService.getBeerById(id);
+       return beerService.getBeerById(id).orElseThrow(NotFoundException::new);
     }
 
     @GetMapping

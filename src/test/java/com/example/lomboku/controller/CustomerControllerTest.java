@@ -46,10 +46,10 @@ class CustomerControllerTest {
     void getBeerByIdNotFound() throws Exception {
 
         given(beerService.getCustomer(any(UUID.class)))
-                .willThrow(KukuException.class);
+                .willThrow(NotFoundException.class);
 
         mockMvc.perform(get("/customer/"+UUID.randomUUID()))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isUnprocessableEntity());
 
     }
 }

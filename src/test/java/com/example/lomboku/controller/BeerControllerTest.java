@@ -28,6 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -153,7 +154,7 @@ class BeerControllerIntTest {
                 = beerServiceImpl.getAllBeers().get(0);
 
         given(beerService.getBeerById(any(UUID.class)))
-                .willReturn(test);
+                .willReturn(Optional.of(test));
 
 
         mockMvc.perform(get("/hibro/" + UUID.randomUUID())
@@ -182,10 +183,10 @@ class BeerControllerIntTest {
     void getBeerByIdNotFound() throws Exception {
 
         given(beerService.getBeerById(any(UUID.class)))
-                .willThrow(KukuException.class);
+                .willReturn(Optional.empty());
 
         mockMvc.perform(get("/hibro/"+UUID.randomUUID()))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isUnprocessableEntity());
 
     }
 }
