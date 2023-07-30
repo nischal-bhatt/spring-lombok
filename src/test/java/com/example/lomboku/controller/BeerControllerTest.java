@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +26,8 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,6 +50,13 @@ class BeerControllerIntTest {
 
     @MockBean
     BeerService beerService;
+
+    @Captor
+    ArgumentCaptor<UUID> uuidCaptor;
+
+    @Captor
+    ArgumentCaptor<Beer> beerCaptor;
+
 
     @BeforeEach
     void setUp() {
@@ -107,11 +117,29 @@ class BeerControllerIntTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
-        ArgumentCaptor<UUID> uuidArgumentCaptor
-        = ArgumentCaptor.forClass((UUID.class));
-        verify(beerService,times(1)).deleteId(uuidArgumentCaptor.capture());
 
-        assertThat(beer.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+        verify(beerService,times(1)).deleteId(uuidCaptor.capture());
+
+        assertThat(beer.getId()).isEqualTo(uuidCaptor.getValue());
+    }
+
+    @Test
+    void testPatch() throws Exception {
+
+        Beer beer = beerServiceImpl.getAllBeers().get(0);
+
+        Map<String,Object> beerMap = new HashMap<>();
+
+        beerMap.put("beerName","new Name");
+
+        mockMvc.perform(patch("/hibro/" + beer.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(beerMap)))
+                .andExpect(status().isNoContent());
+
+        verify(beerService,times(1)).pathById(uuidCaptor.capture(),beerCaptor.capture());
+        assertThat(beerCaptor.getValue().getBeerName()).isEqualTo(beerMap.get("beerName"));
     }
 
 

@@ -2,7 +2,6 @@ package com.example.lomboku.controller;
 
 import com.example.lomboku.model.Beer;
 import com.example.lomboku.service.BeerService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j
