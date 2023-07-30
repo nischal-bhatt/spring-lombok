@@ -34,7 +34,7 @@ class BeerServiceImplTest {
 
 
 
-        assertThrows(KukuException.class,()->impl.getBeerById(UUID.randomUUID()));
+        assertThrows(NotFoundException.class,()->impl.getBeerById(UUID.randomUUID()));
 
     }
 }
