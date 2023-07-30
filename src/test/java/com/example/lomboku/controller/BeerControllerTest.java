@@ -3,6 +3,8 @@ package com.example.lomboku.controller;
 import com.example.lomboku.model.Beer;
 import com.example.lomboku.service.BeerService;
 import com.example.lomboku.service.BeerServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,9 +34,23 @@ class BeerControllerIntTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
 
     @MockBean
     BeerService beerService;
+
+    @Test
+    void testCreateNewBeer() throws JsonProcessingException {
+
+
+        Beer beer = beerServiceImpl.getAllBeers().get(0);
+        beer.setUpdatedDate(LocalDateTime.now());
+
+        System.out.println(objectMapper.writeValueAsString(beer));
+
+    }
 
     BeerServiceImpl beerServiceImpl
             = new BeerServiceImpl();
