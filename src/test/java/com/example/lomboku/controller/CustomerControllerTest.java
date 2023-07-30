@@ -1,5 +1,6 @@
 package com.example.lomboku.controller;
 
+import com.example.lomboku.model.Customer;
 import com.example.lomboku.service.BeerService;
 import com.example.lomboku.service.CustomerService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,7 +33,13 @@ class CustomerControllerTest {
 
 
     @Test
-    void getCustomerById() {
+    void getCustomerById() throws Exception {
+        given(beerService.getCustomer(any(UUID.class)))
+                .willReturn(Customer.builder().name("tesa").build());
+
+        mockMvc.perform(get("/customer/"+UUID.randomUUID()))
+                .andExpect(status().isOk());
+
     }
 
     @Test

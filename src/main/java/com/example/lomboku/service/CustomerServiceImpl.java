@@ -1,5 +1,6 @@
 package com.example.lomboku.service;
 
+import com.example.lomboku.controller.KukuException;
 import com.example.lomboku.model.Customer;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomer(UUID uuid) {
+
+        if (customerMap.get(uuid) == null) {
+            throw new KukuException("bro!");
+        }
+
         return customerMap.get(uuid);
     }
 
