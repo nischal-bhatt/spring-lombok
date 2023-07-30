@@ -47,14 +47,10 @@ public class BeerServiceImpl implements BeerService {
         log.info("get beer service is cvalled");
 
         System.out.println(beerMap.get(id));
-        Beer b = beerMap.get(id);
-        if (b == null) {
-            System.out.println("retirmo");
-            return Optional.empty();
-        }
+
 
         System.out.println("notntont");
-        return Optional.of(beerMap.get(id));
+        return beerMap.get(id) == null ? Optional.empty():Optional.of(beerMap.get(id));
     }
 
     @Override
