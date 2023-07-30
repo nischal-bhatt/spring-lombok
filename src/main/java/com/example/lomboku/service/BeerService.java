@@ -13,4 +13,6 @@ public interface BeerService {
     Beer insertBeer(Beer beer);
 
     void updateObj(UUID beerId, Beer beer) throws Exception;
+
+    void deleteId(UUID id);
 }

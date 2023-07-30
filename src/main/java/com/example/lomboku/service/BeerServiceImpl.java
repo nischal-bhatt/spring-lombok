@@ -62,4 +62,9 @@ public class BeerServiceImpl implements BeerService {
             throw new Exception("cannot find beer la dei");
         }
     }
+
+    @Override
+    public void deleteId(UUID id) {
+        this.beerMap.remove(id);
+    }
 }
