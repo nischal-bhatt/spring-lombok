@@ -49,7 +49,7 @@ public class BeerServiceImpl implements BeerService {
         System.out.println(beerMap.get(id));
         Beer b = beerMap.get(id);
         if (b == null) {
-            throw new NotFoundException("oi!");
+            throw new KukuException("oi!");
         }
 
         return beerMap.get(id);
