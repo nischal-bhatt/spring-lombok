@@ -10,6 +10,6 @@ public class ExceptionController {
     @ExceptionHandler(KukuException.class)
     public ResponseEntity handleNotFoundException() {
         System.out.println("lo and behold we are inside here!");
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.unprocessableEntity().build();
     }
 }
