@@ -18,15 +18,15 @@ public class BeerServiceImpl implements BeerService {
 
         UUID uuid = UUID.randomUUID();
         beerMap.put(uuid,
-                Beer.builder().id(uuid).beerStyle(BeerStyle.PILSNER).build());
+                Beer.builder().id(uuid).beerStyle(BeerStyle.PILSNER).beerName("test1").build());
 
         uuid = UUID.randomUUID();
         beerMap.put(uuid,
-                Beer.builder().id(uuid).beerStyle(BeerStyle.LAGER).build());
+                Beer.builder().id(uuid).beerStyle(BeerStyle.LAGER).beerName("test1").build());
 
         uuid = UUID.randomUUID();
         beerMap.put(uuid,
-                Beer.builder().id(uuid).beerStyle(BeerStyle.PORTER).build());
+                Beer.builder().id(uuid).beerStyle(BeerStyle.PORTER).beerName("test1").build());
 
 
         beerMap.entrySet()
@@ -44,8 +44,8 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public Collection<Beer> getAllBeers() {
-        return beerMap.values();
+    public List<Beer> getAllBeers() {
+        return new ArrayList<>(beerMap.values());
     }
 
     @Override
