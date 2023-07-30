@@ -46,4 +46,20 @@ public class BeerServiceImpl implements BeerService {
     public Collection<Beer> getAllBeers() {
         return beerMap.values();
     }
+
+    @Override
+    public Beer insertBeer(Beer beer) {
+        this.beerMap.put(beer.getId(),beer);
+        return beer;
+    }
+
+    @Override
+    public void updateObj(UUID beerId, Beer beer) throws Exception {
+        if (beerMap.containsKey(beerId)) {
+            System.out.println("updating");
+            beerMap.put(beerId,beer);
+        }else{
+            throw new Exception("cannot find beer la dei");
+        }
+    }
 }

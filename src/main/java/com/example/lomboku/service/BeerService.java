@@ -10,4 +10,7 @@ public interface BeerService {
     public Beer getBeerById(UUID id);
 
     Collection<Beer> getAllBeers();
+    Beer insertBeer(Beer beer);
+
+    void updateObj(UUID beerId, Beer beer) throws Exception;
 }
