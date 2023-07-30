@@ -5,20 +5,45 @@ import com.example.lomboku.model.BeerStyle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.*;
 
 @Service("beerboy")
 @Slf4j
 public class BeerServiceImpl implements BeerService {
+
+    Map<UUID,Beer> beerMap = new HashMap<>();
+
+    public BeerServiceImpl() {
+
+        UUID uuid = UUID.randomUUID();
+        beerMap.put(uuid,
+                Beer.builder().id(uuid).beerStyle(BeerStyle.PILSNER).build());
+
+        uuid = UUID.randomUUID();
+        beerMap.put(uuid,
+                Beer.builder().id(uuid).beerStyle(BeerStyle.LAGER).build());
+
+        uuid = UUID.randomUUID();
+        beerMap.put(uuid,
+                Beer.builder().id(uuid).beerStyle(BeerStyle.PORTER).build());
+
+
+        beerMap.entrySet()
+                .stream()
+                .forEach(r -> System.out.println(r.getKey()));
+
+
+    }
+
     @Override
     public Beer getBeerById(UUID id) {
 
         log.info("get beer service is cvalled");
-        return Beer.builder()
-                .id(id)
-                .version(1)
-                .beerStyle(BeerStyle.PILSNER)
-                .upc("123456")
-                .build();
+        return beerMap.get(id);
+    }
+
+    @Override
+    public Collection<Beer> getAllBeers() {
+        return beerMap.values();
     }
 }
