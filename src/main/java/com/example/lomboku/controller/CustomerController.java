@@ -23,6 +23,7 @@ public class CustomerController {
     @GetMapping("/{customerId}")
     public Customer getCustomerById(@PathVariable("customerId") UUID customerId)
     {
+        System.out.println("test");
         return customerService.getCustomer(customerId);
     }
 
