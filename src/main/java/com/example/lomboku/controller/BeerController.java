@@ -20,6 +20,11 @@ public class BeerController {
 
     private final BeerService beerService;
 
+//    @ExceptionHandler(NotFoundException.class)
+//    public ResponseEntity handleNotFoundException() {
+//        return ResponseEntity.notFound().build();
+//    }
+
     @GetMapping("{id}")
     public Beer getBeer(@PathVariable("id") UUID id)
     {
