@@ -4,6 +4,7 @@ import com.example.lomboku.model.Beer;
 import com.example.lomboku.model.BeerStyle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -66,5 +67,16 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public void deleteId(UUID id) {
         this.beerMap.remove(id);
+    }
+
+    @Override
+    public void pathById(UUID beerId, Beer beer) {
+        Beer existing = beerMap.get(beerId);
+
+        if (StringUtils.hasText(beer.getBeerName())) {
+            existing.setBeerName(beer.getBeerName());
+        }
+
+
     }
 }
